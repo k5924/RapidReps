@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapid_reps/models/cdo_model.dart';
+import 'package:rapid_reps/services/export.dart';
+import '../models/export.dart';
 import 'export.dart';
 import '../widgets/export.dart';
 
@@ -295,13 +296,10 @@ class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
         if (errorText == 'email-already-in-use') {
           errorText = 'User with this Email already exists';
         }
-        Fluttertoast.showToast(
-            msg: errorText!,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
+        customToast(
+          msg: errorText!,
+          backgroundColor: Colors.red,
+        );
       }
     }
   }
@@ -327,7 +325,12 @@ class _CDOSignUpScreenState extends State<CDOSignUpScreen> {
         .doc(user.uid)
         .set(userModel.toMap());
 
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const ConstructionPage()));
+    user.sendEmailVerification();
+
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => RedirectToLoginScreen(
+              textToDisplay:
+                  'An Email has been sent to ${user.email} please verify',
+            )));
   }
 }

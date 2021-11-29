@@ -1,4 +1,6 @@
-import 'package:rapid_reps/models/user_model.dart';
+
+import 'export.dart';
+
 
 class CDOModel extends userModel {
   String? policeStation;
