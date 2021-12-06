@@ -7,6 +7,7 @@ import 'package:rapid_reps/models/export.dart';
 import 'package:rapid_reps/utilities/export.dart';
 import 'package:rapid_reps/widgets/export.dart';
 
+// ignore: must_be_immutable
 class ViewJobCDO extends StatefulWidget {
   QueryDocumentSnapshot currentJob;
   SolicitorModel? solicitor;
@@ -238,20 +239,10 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
               ),
             ]),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        showElevation: true,
-        itemCornerRadius: 24,
-        curve: Curves.easeIn,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.animateToPage(index,
-              duration: const Duration(
-                milliseconds: 300,
-              ),
-              curve: Curves.ease);
-        },
-        items: <BottomNavyBarItem>[
+      bottomNavigationBar: CustomNavBar(
+        controller: _pageController,
+        currentIndex: _currentIndex,
+        navBarItems: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: const Icon(
               Icons.apps,
@@ -278,6 +269,7 @@ class _ViewJobCDOState extends State<ViewJobCDO> {
   }
 
   Future<Column> getSolicitor() async {
+    // ignore: unused_local_variable
     var document = await FirebaseFirestore.instance
         .collection('users')
         .doc(widget.currentJob['assignedSolicitor'])

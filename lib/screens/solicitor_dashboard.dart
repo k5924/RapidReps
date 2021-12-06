@@ -363,81 +363,16 @@ class _SolicitorDashboardState extends State<SolicitorDashboard> {
                   ),
                 ),
               ),
-              Center(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Email',
-                          backgroundColour: kSolicitorColour,
-                          horizontalPadding: 25,
-                          icon: Icons.email,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangeEmail(
-                                userColor: kSolicitorColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Change Password',
-                          backgroundColour: Colors.orange,
-                          horizontalPadding: 25,
-                          icon: Icons.password,
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangePassword(
-                                userColour: kSolicitorColour,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        customIconButton(
-                          context,
-                          label: 'Logout',
-                          backgroundColour: Colors.red,
-                          horizontalPadding: 25,
-                          icon: Icons.logout,
-                          onPressed: () => logout(context),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              SettingsWidget(
+                userColour: kSolicitorColour,
+              ),
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavyBar(
-          selectedIndex: _currentIndex,
-          showElevation: true,
-          itemCornerRadius: 24,
-          curve: Curves.easeIn,
-          onItemSelected: (index) {
-            setState(() => _currentIndex = index);
-            _pageController.animateToPage(index,
-                duration: const Duration(
-                  milliseconds: 300,
-                ),
-                curve: Curves.ease);
-          },
-          items: <BottomNavyBarItem>[
+        bottomNavigationBar: CustomNavBar(
+          controller: _pageController,
+          currentIndex: _currentIndex,
+          navBarItems: <BottomNavyBarItem>[
             BottomNavyBarItem(
               icon: const Icon(
                 Icons.apps,
