@@ -46,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 500,
                   width: 325,
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -145,12 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(
-                            height: 25,
+                            height: 20,
                           ),
-                          CustomButton(
-                            buttonColour: const Color(0xFFF49413),
-                            horizontalPadding: 60,
-                            buttonText: 'Forgot Password',
+                          TextButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -160,6 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
                             },
+                            child: const Text(
+                              'Forgot Password',
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.blue),
+                            ),
                           ),
                         ],
                       ),
